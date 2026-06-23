@@ -73,6 +73,24 @@ body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);ove
 .globe-footer{background:var(--light);border-top:1px solid var(--border);text-align:center;padding:20px;font-size:11.5px;color:#999}
 .globe-footer a{color:var(--teal);text-decoration:none}
 
+/* ══════════════════ EQUIP LP (PH / US — no nav) ══════════════════ */
+#lp{display:none}
+.lp-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 32px;border-bottom:1px solid var(--border);
+  background:var(--white)
+}
+.lp-topbar-logo{display:flex;align-items:center;gap:9px}
+.lp-topbar-logo .logo-mark{width:28px;height:28px;background:var(--teal-pale);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.lp-topbar-logo .logo-mark svg{width:16px;height:16px}
+.lp-topbar-logo span{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--ink);letter-spacing:.04em}
+.lp-back{
+  display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:500;
+  color:var(--mid);cursor:pointer;border:1px solid var(--border);
+  border-radius:6px;padding:7px 14px;transition:all .18s;text-decoration:none
+}
+.lp-back:hover{border-color:var(--teal);color:var(--teal);background:var(--teal-pale)}
+
 /* ══════════════════ SITE ══════════════════ */
 nav{
   position:sticky;top:42px;left:0;right:0;height:var(--nav-h);z-index:300;
@@ -312,6 +330,67 @@ nav.light .nav-icon svg{stroke:var(--mid)}
 </div>
 
 <!-- ══════════════════════════════════════════
+     EQUIP LANDING PAGE (PH / US — no nav)
+══════════════════════════════════════════ -->
+<div id="lp">
+  <!-- minimal top bar: logo + back -->
+  <div class="lp-topbar">
+    <div class="lp-topbar-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="8" stroke="#1B6B6B" stroke-width="1.5"/>
+          <circle cx="10" cy="10" r="4" stroke="#1B6B6B" stroke-width="1.5"/>
+          <circle cx="10" cy="10" r="1.5" fill="#1B6B6B"/>
+        </svg>
+      </div>
+      <span>CC⁺ cleanchain⁺</span>
+    </div>
+    <div class="lp-back" onclick="goGlobe()">← All countries</div>
+  </div>
+
+  <!-- reuse eq-hero / eq-body styles -->
+  <div class="eq-hero">
+    <div class="eq-hc">
+      <div class="lp-tag">Equipment & Applications</div>
+      <h1 class="lp-h1">Industrial Laundry<br>Solutions</h1>
+      <p class="lp-lead">Commercial-grade washers and dryers engineered for self-service laundromats, hotels, and commercial clients.</p>
+      <button class="btn-solid">Request a Quote ›</button>
+    </div>
+  </div>
+
+  <div class="eq-body">
+    <div class="sec-title">Our Equipment Range</div>
+    <p class="sec-sub">All machines are IoT-enabled for remote monitoring, cashless payment, and predictive maintenance.</p>
+    <div class="prod-grid">
+      <div class="prod-card"><div class="prod-thumb"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" stroke-width="2.5"/><circle cx="40" cy="40" r="20" stroke-width="2"/><circle cx="40" cy="40" r="7" stroke-width="2"/></svg></div><div class="prod-body"><div class="prod-tag">Washer</div><div class="prod-h">小AQUA Front Load</div><p class="prod-p">8–14 kg capacity. Designed for self-service laundromats with coin and cashless payment.</p></div></div>
+      <div class="prod-card"><div class="prod-thumb"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" stroke-width="2.5"/><circle cx="40" cy="40" r="20" stroke-width="2"/><circle cx="40" cy="40" r="7" stroke-width="2"/><line x1="40" y1="6" x2="40" y2="20" stroke-width="2"/><line x1="40" y1="60" x2="40" y2="74" stroke-width="2"/></svg></div><div class="prod-body"><div class="prod-tag">Washer</div><div class="prod-h">Primus Commercial</div><p class="prod-p">16–35 kg high-spin commercial washer. Built for high-volume throughput.</p></div></div>
+      <div class="prod-card"><div class="prod-thumb"><svg viewBox="0 0 80 80"><rect x="8" y="14" width="64" height="52" rx="6" stroke-width="2.5"/><circle cx="40" cy="40" r="18" stroke-width="2"/><circle cx="40" cy="40" r="6" stroke-width="2"/></svg></div><div class="prod-body"><div class="prod-tag">Dryer</div><div class="prod-h">Stack Dryer Series</div><p class="prod-p">Space-efficient stacked dryers in 11 kg and 14 kg configurations for dense floor plans.</p></div></div>
+    </div>
+
+    <div class="sec-title">Specifications</div>
+    <p class="sec-sub" style="margin-bottom:18px">All models available in 220V/50Hz and 380V/50Hz configurations.</p>
+    <table class="specs-table">
+      <thead><tr><th>Model</th><th>Type</th><th>Capacity</th><th>Spin Speed</th><th>Connection</th></tr></thead>
+      <tbody>
+        <tr><td>小AQUA 8 kg</td><td>Front-load washer</td><td>8 kg</td><td>1,200 rpm</td><td>Coin / QR / NFC</td></tr>
+        <tr><td>小AQUA 12 kg</td><td>Front-load washer</td><td>12 kg</td><td>1,200 rpm</td><td>Coin / QR / NFC</td></tr>
+        <tr><td>Primus 18 kg</td><td>Commercial washer</td><td>18 kg</td><td>1,400 rpm</td><td>QR / NFC / API</td></tr>
+        <tr><td>Primus 35 kg</td><td>Commercial washer</td><td>35 kg</td><td>1,000 rpm</td><td>QR / NFC / API</td></tr>
+        <tr><td>Stack Dryer 11 kg</td><td>Vented dryer</td><td>11 kg</td><td>—</td><td>Coin / QR</td></tr>
+        <tr><td>Stack Dryer 14 kg</td><td>Vented dryer</td><td>14 kg</td><td>—</td><td>Coin / QR</td></tr>
+      </tbody>
+    </table>
+    <div class="cta-bar"><div><h3>Need a custom quote?</h3><p>Tell us your floor plan and we'll recommend the right machine mix.</p></div><button class="btn-solid">Get a Quote ›</button></div>
+  </div>
+
+  <footer class="site-footer">
+    &copy; 2025 CleanChain International &nbsp;|&nbsp;
+    <a href="#">Privacy</a> &nbsp;|&nbsp;
+    <a onclick="goGlobe()" style="cursor:pointer">← Change Country</a>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════
      SITE (sub-site shell)
 ══════════════════════════════════════════ -->
 <div id="site">
@@ -492,6 +571,7 @@ function buildGlobe(){
 
 function goGlobe(){
   document.getElementById('globe').style.display='block';
+  document.getElementById('lp').style.display='none';
   document.getElementById('site').style.display='none';
   document.getElementById('bb-url').textContent='cleanchain-global.com';
   currentCountry=null;
@@ -501,10 +581,23 @@ function goGlobe(){
 function enterSite(code){
   const c=getC(code);
   currentCountry=code;
-  document.getElementById('globe').style.display='none';
-  document.getElementById('site').style.display='block';
-  applyCountry(code);
-  showPage('home');
+  document.getElementById('bb-url').textContent='cleanchain-global.com/'+code;
+  document.title='CleanChain — '+c.name;
+
+  if(!c.hasFr){
+    // PH / US: standalone equipment LP, no nav
+    document.getElementById('globe').style.display='none';
+    document.getElementById('lp').style.display='block';
+    document.getElementById('site').style.display='none';
+    window.scrollTo(0,0);
+  } else {
+    // TH / VN / IN: full sub-site with nav
+    document.getElementById('globe').style.display='none';
+    document.getElementById('lp').style.display='none';
+    document.getElementById('site').style.display='block';
+    applyCountry(code);
+    showPage('home');
+  }
 }
 
 function applyCountry(code){
@@ -544,9 +637,8 @@ function buildDD(){
 
 function switchCountry(code){
   currentCountry=code;
-  applyCountry(code);
   closeCS();
-  showPage('home');
+  enterSite(code);
 }
 
 function toggleCS(){ csOpen=!csOpen; document.getElementById('cs-dd').classList.toggle('open',csOpen); }
