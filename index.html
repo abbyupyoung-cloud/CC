@@ -35,43 +35,113 @@ body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);ove
 #globe{display:block}
 #site{display:none}
 
-.globe-hero{
-  position:relative;height:320px;overflow:hidden;
+/* full-bleed dark layout */
+.globe-wrap{
+  min-height:calc(100vh - 42px);
+  background:#07151a;
+  display:flex;flex-direction:column
+}
+
+/* top header strip */
+.globe-header{
+  padding:36px 56px 0;
+  display:flex;align-items:flex-start;justify-content:space-between;
+  flex-wrap:wrap;gap:16px
+}
+.globe-logo{display:flex;align-items:center;gap:10px}
+.globe-logo-mark{
+  width:36px;height:36px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.2);
   display:flex;align-items:center;justify-content:center
 }
-.globe-bg{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,#0d3d3d 0%,#1b6b6b 50%,#2a9090 100%)
-}
-.globe-bg::after{content:'';position:absolute;inset:0;
-  background:radial-gradient(circle 200px at 15% 70%,rgba(255,255,255,.04) 0%,transparent 70%),
-             radial-gradient(circle 250px at 80% 20%,rgba(255,255,255,.04) 0%,transparent 70%)}
-.globe-title{position:relative;text-align:center;color:#fff}
-.globe-title h1{font-family:'Syne',sans-serif;font-size:30px;font-weight:700;line-height:1.2;margin-bottom:10px}
-.globe-title p{font-size:13.5px;opacity:.75;line-height:1.65}
-.globe-title a{color:rgba(255,255,255,.9);text-underline-offset:3px}
+.globe-logo-mark svg{width:19px;height:19px}
+.globe-logo-word{font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:#fff;letter-spacing:.04em}
+.globe-logo-sub{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:2px}
 
-.globe-list{max-width:640px;margin:0 auto;padding:48px 28px 64px}
-.country-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.globe-headline{
+  max-width:480px;
+  padding:32px 56px 0;
+}
+.globe-headline h1{
+  font-family:'Syne',sans-serif;font-size:clamp(26px,3vw,38px);font-weight:800;
+  color:#fff;line-height:1.15;letter-spacing:-.02em;margin-bottom:10px
+}
+.globe-headline p{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.7}
+
+/* map + cards layout */
+.globe-body{
+  flex:1;display:flex;align-items:stretch;
+  padding:0 40px 48px;gap:32px;margin-top:24px
+}
+
+/* SVG world map */
+.globe-map-wrap{
+  flex:1;position:relative;min-height:320px;
+  display:flex;align-items:center;justify-content:center
+}
+.globe-map-wrap svg.world{width:100%;max-width:700px;height:auto;opacity:.18}
+
+/* dot pins on map */
+.map-pin{
+  position:absolute;cursor:pointer;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;gap:4px
+}
+.pin-dot{
+  width:10px;height:10px;border-radius:50%;background:var(--teal-lt);
+  box-shadow:0 0 0 3px rgba(42,143,143,.25);
+  transition:transform .2s,box-shadow .2s
+}
+.map-pin:hover .pin-dot{
+  transform:scale(1.5);box-shadow:0 0 0 6px rgba(42,143,143,.2)
+}
+.pin-label{
+  font-size:10px;font-weight:600;letter-spacing:.06em;
+  color:rgba(255,255,255,.7);white-space:nowrap;
+  background:rgba(0,0,0,.5);border-radius:3px;padding:2px 6px;
+  backdrop-filter:blur(4px);
+  opacity:0;transform:translateY(2px);
+  transition:opacity .18s,transform .18s
+}
+.map-pin:hover .pin-label{opacity:1;transform:translateY(0)}
+
+/* country list panel */
+.globe-panel{
+  width:260px;flex-shrink:0;
+  display:flex;flex-direction:column;gap:6px;
+  justify-content:center
+}
+.globe-panel-title{
+  font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.3);margin-bottom:8px;padding-bottom:8px;
+  border-bottom:1px solid rgba(255,255,255,.07)
+}
 
 .cc-card{
-  display:flex;align-items:center;gap:14px;padding:15px 18px;
-  border:1px solid var(--border);border-radius:10px;
-  background:var(--white);cursor:pointer;
+  display:flex;align-items:center;gap:12px;padding:12px 16px;
+  border:1px solid rgba(255,255,255,.07);border-radius:10px;
+  background:rgba(255,255,255,.04);cursor:pointer;
   transition:border-color .18s,background .18s,transform .15s
 }
-.cc-card:hover{border-color:var(--teal);background:#f0fafa;transform:translateY(-1px)}
-.cc-card.full{grid-column:1/-1;max-width:310px;margin:0 auto;width:100%}
-
-.flag-w{width:38px;height:26px;border-radius:3px;overflow:hidden;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.cc-card:hover{border-color:var(--teal-lt);background:rgba(42,143,143,.1);transform:translateX(3px)}
+.flag-w{width:34px;height:23px;border-radius:3px;overflow:hidden;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.3)}
 .flag-w svg{width:100%;height:100%;display:block}
-.cc-name{font-size:13.5px;font-weight:600;color:var(--ink)}
-.cc-url{font-size:10.5px;color:var(--teal);margin-top:1px;opacity:.8}
-.cc-arr{margin-left:auto;font-size:15px;color:var(--teal);opacity:.4;transition:opacity .18s,transform .18s}
+.cc-name{font-size:13px;font-weight:600;color:rgba(255,255,255,.85)}
+.cc-region{font-size:10.5px;color:rgba(255,255,255,.35);margin-top:1px}
+.cc-arr{margin-left:auto;font-size:14px;color:var(--teal-lt);opacity:.4;transition:opacity .18s,transform .18s}
 .cc-card:hover .cc-arr{opacity:1;transform:translateX(3px)}
 
-.globe-footer{background:var(--light);border-top:1px solid var(--border);text-align:center;padding:20px;font-size:11.5px;color:#999}
-.globe-footer a{color:var(--teal);text-decoration:none}
+.globe-footer{
+  border-top:1px solid rgba(255,255,255,.06);
+  text-align:center;padding:18px;font-size:11.5px;color:rgba(255,255,255,.25)
+}
+.globe-footer a{color:var(--teal-lt);text-decoration:none}
+
+/* ── country switcher: "Service Region" label ── */
+.cs-region-label{
+  font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);display:block;margin-bottom:1px
+}
+nav.light .cs-region-label{color:var(--mid)}
 
 /* ══════════════════ EQUIP LP (PH / US — no nav) ══════════════════ */
 #lp{display:none}
@@ -307,19 +377,82 @@ nav.light .nav-icon svg{stroke:var(--mid)}
      GLOBE PAGE
 ══════════════════════════════════════════ -->
 <div id="globe">
-  <div class="globe-hero">
-    <div class="globe-bg"></div>
-    <div class="globe-title">
-      <h1>Welcome to CleanChain.</h1>
-      <p>Please select your country below.<br>
-      If you do not see your country listed, please <a href="#">contact us</a>.</p>
+<div class="globe-wrap">
+
+  <!-- header -->
+  <div class="globe-header">
+    <div class="globe-logo">
+      <div class="globe-logo-mark">
+        <svg viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="8" stroke="rgba(255,255,255,.6)" stroke-width="1.3"/>
+          <circle cx="10" cy="10" r="4" stroke="rgba(255,255,255,.6)" stroke-width="1.3"/>
+          <circle cx="10" cy="10" r="1.5" fill="rgba(255,255,255,.6)"/>
+        </svg>
+      </div>
+      <div>
+        <div class="globe-logo-word">CC⁺ cleanchain⁺</div>
+        <div class="globe-logo-sub">Global Operations</div>
+      </div>
     </div>
   </div>
 
-  <div class="globe-list">
-    <div class="country-grid" id="globe-grid">
-      <!-- injected by JS -->
+  <div class="globe-headline">
+    <h1>Serving businesses<br>across the globe.</h1>
+    <p>Select your service region to access localised franchise opportunities and equipment solutions.</p>
+  </div>
+
+  <!-- map + panel -->
+  <div class="globe-body">
+
+    <!-- SVG world map (simplified) -->
+    <div class="globe-map-wrap" id="globe-map">
+      <!-- simplified world outline SVG -->
+      <svg class="world" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" fill="rgba(255,255,255,1)" stroke="none">
+        <!-- North America -->
+        <path d="M80,60 L180,50 L220,70 L240,110 L220,140 L200,160 L180,200 L160,220 L140,210 L120,190 L100,170 L80,150 L70,120 L60,90 Z"/>
+        <path d="M160,220 L185,240 L190,270 L175,290 L160,280 L150,260 L155,240 Z"/>
+        <!-- Greenland -->
+        <path d="M220,20 L270,15 L280,35 L265,55 L240,60 L220,45 Z"/>
+        <!-- South America -->
+        <path d="M195,285 L230,275 L250,290 L260,320 L255,360 L240,390 L220,410 L200,400 L185,370 L180,340 L185,310 Z"/>
+        <!-- Europe -->
+        <path d="M440,55 L490,50 L510,65 L505,85 L490,95 L470,90 L450,80 L435,70 Z"/>
+        <path d="M450,90 L480,95 L490,115 L475,125 L455,120 L445,105 Z"/>
+        <!-- Africa -->
+        <path d="M450,130 L500,125 L520,145 L525,180 L520,220 L510,260 L495,290 L475,300 L455,285 L440,255 L435,215 L438,175 L442,150 Z"/>
+        <!-- UK / Ireland -->
+        <path d="M420,60 L435,55 L438,70 L428,75 L418,70 Z"/>
+        <!-- Russia / Asia north -->
+        <path d="M510,40 L600,30 L700,35 L760,50 L780,70 L760,85 L720,80 L680,75 L630,70 L580,65 L540,60 L515,55 Z"/>
+        <!-- Middle East -->
+        <path d="M520,115 L560,110 L580,130 L570,155 L545,160 L520,145 Z"/>
+        <!-- South Asia -->
+        <path d="M580,130 L630,125 L650,145 L645,175 L625,190 L600,185 L580,165 L575,145 Z"/>
+        <!-- Southeast Asia — highlighted region -->
+        <path d="M660,155 L710,145 L730,165 L725,195 L705,205 L680,200 L660,180 Z" fill="rgba(42,143,143,.7)"/>
+        <!-- Indonesia islands -->
+        <path d="M668,210 L700,205 L715,215 L710,228 L690,230 L668,222 Z" fill="rgba(42,143,143,.6)"/>
+        <path d="M715,215 L745,210 L755,222 L745,232 L718,228 Z" fill="rgba(42,143,143,.6)"/>
+        <!-- China -->
+        <path d="M640,90 L720,80 L750,100 L745,130 L720,145 L680,140 L650,130 L635,110 Z"/>
+        <!-- Japan/Korea -->
+        <path d="M755,90 L775,85 L785,100 L775,112 L758,108 Z"/>
+        <!-- Australia -->
+        <path d="M720,295 L790,285 L820,305 L825,345 L810,375 L780,385 L750,375 L730,350 L718,320 Z"/>
+        <!-- USA -->
+        <path d="M85,105 L195,95 L210,120 L200,155 L175,175 L140,180 L105,168 L82,148 L78,125 Z"/>
+      </svg>
+
+      <!-- pins injected by JS -->
+      <div id="map-pins"></div>
     </div>
+
+    <!-- country list panel -->
+    <div class="globe-panel">
+      <div class="globe-panel-title">Service Regions</div>
+      <div id="globe-grid"></div>
+    </div>
+
   </div>
 
   <div class="globe-footer">
@@ -327,6 +460,8 @@ nav.light .nav-icon svg{stroke:var(--mid)}
     <a href="#">Privacy Policy</a> &nbsp;|&nbsp;
     <a href="#">Contact</a>
   </div>
+
+</div>
 </div>
 
 <!-- ══════════════════════════════════════════
@@ -409,6 +544,7 @@ nav.light .nav-icon svg{stroke:var(--mid)}
 
     <ul class="nav-links" id="nav-links">
       <li><a onclick="showPage('home')" data-page="home" class="active">About</a></li>
+      <li><a onclick="showPage('products')" data-page="products">Products</a></li>
       <li><a onclick="showPage('equip')" data-page="equip">Equipment</a></li>
       <li id="join-li"><a onclick="showPage('join')" data-page="join">Join Us</a></li>
       <li><a onclick="return false">News</a></li>
@@ -423,7 +559,10 @@ nav.light .nav-icon svg{stroke:var(--mid)}
       <div class="cs-wrap" id="cs">
         <div class="cs-btn" onclick="toggleCS()">
           <span class="cs-flag" id="cs-flag"></span>
-          <span id="cs-label">Thailand</span>
+          <div>
+            <span class="cs-region-label">Service Region</span>
+            <span id="cs-label">Thailand</span>
+          </div>
           <span class="cs-caret">▾</span>
         </div>
         <div class="cs-dd" id="cs-dd"></div>
@@ -487,6 +626,11 @@ nav.light .nav-icon svg{stroke:var(--mid)}
     </div>
   </div>
 
+  <!-- PRODUCTS — rendered dynamically by renderProducts() -->
+  <div class="page" id="page-products">
+    <div id="products-content"></div>
+  </div>
+
   <!-- EQUIPMENT -->
   <div class="page" id="page-equip">
     <div class="eq-hero">
@@ -541,9 +685,6 @@ const COUNTRIES = [
   { code:'in', name:'Indonesia',     hasFr:true,
     flag:`<svg viewBox="0 0 22 15"><rect width="22" height="7.5" fill="#CE1126"/><rect y="7.5" width="22" height="7.5" fill="#FFFFFF"/></svg>`,
     flagLg:`<svg viewBox="0 0 40 28"><rect width="40" height="14" fill="#CE1126"/><rect y="14" width="40" height="14" fill="#FFFFFF"/></svg>` },
-  { code:'ph', name:'Philippines',   hasFr:false,
-    flag:`<svg viewBox="0 0 22 15"><rect width="22" height="7.5" fill="#0038A8"/><rect y="7.5" width="22" height="7.5" fill="#CE1126"/><polygon points="0,0 10,7.5 0,15" fill="#FFFFFF"/><polygon points="4,7.5 5.2,5.8 6.4,7.5 5.2,9.2" fill="#FCD116"/></svg>`,
-    flagLg:`<svg viewBox="0 0 40 28"><rect width="40" height="14" fill="#0038A8"/><rect y="14" width="40" height="14" fill="#CE1126"/><polygon points="0,0 18,14 0,28" fill="#FFFFFF"/><polygon points="7,14 8.8,11 10.6,14 8.8,17" fill="#FCD116"/></svg>` },
   { code:'us', name:'United States', hasFr:false,
     flag:`<svg viewBox="0 0 22 15"><rect width="22" height="15" fill="#B22234"/><rect y="1.15" width="22" height="1.15" fill="#fff"/><rect y="3.46" width="22" height="1.15" fill="#fff"/><rect y="5.77" width="22" height="1.15" fill="#fff"/><rect y="8.08" width="22" height="1.15" fill="#fff"/><rect y="10.38" width="22" height="1.15" fill="#fff"/><rect y="12.69" width="22" height="1.15" fill="#fff"/><rect width="8.8" height="8.08" fill="#3C3B6E"/></svg>`,
     flagLg:`<svg viewBox="0 0 40 28"><rect width="40" height="28" fill="#B22234"/><rect y="2.15" width="40" height="2.15" fill="#fff"/><rect y="6.46" width="40" height="2.15" fill="#fff"/><rect y="10.77" width="40" height="2.15" fill="#fff"/><rect y="15.08" width="40" height="2.15" fill="#fff"/><rect y="19.38" width="40" height="2.15" fill="#fff"/><rect y="23.69" width="40" height="2.15" fill="#fff"/><rect width="16" height="15.08" fill="#3C3B6E"/></svg>` },
@@ -554,19 +695,49 @@ let csOpen = false;
 
 function getC(code){ return COUNTRIES.find(c=>c.code===code)||COUNTRIES[0]; }
 
+// map pin positions (% of SVG viewport)
+const PIN_POS = {
+  th: {x:68.5, y:43},
+  vn: {x:70,   y:40},
+  in: {x:67,   y:48},
+  us: {x:13,   y:34},
+};
+const REGION_LABEL = {
+  th:'Southeast Asia', vn:'Southeast Asia', in:'Southeast Asia', us:'North America'
+};
+
 // ── Globe page ──
 function buildGlobe(){
   const grid = document.getElementById('globe-grid');
-  grid.innerHTML = COUNTRIES.map((c,i)=>`
-    <div class="cc-card${i===COUNTRIES.length-1?' full':''}" onclick="enterSite('${c.code}')">
+  grid.innerHTML = COUNTRIES.map(c=>`
+    <div class="cc-card" onclick="enterSite('${c.code}')">
       <div class="flag-w">${c.flagLg}</div>
       <div>
         <div class="cc-name">${c.name}</div>
-        <div class="cc-url">cleanchain-global.com/${c.code}</div>
+        <div class="cc-region">${REGION_LABEL[c.code]||''}</div>
       </div>
       <span class="cc-arr">›</span>
     </div>
   `).join('');
+
+  // build map pins
+  const pinsEl = document.getElementById('map-pins');
+  const mapWrap = document.getElementById('globe-map');
+  if(!pinsEl||!mapWrap) return;
+  pinsEl.innerHTML='';
+  pinsEl.style.cssText='position:absolute;inset:0;pointer-events:none';
+  COUNTRIES.forEach(c=>{
+    const pos=PIN_POS[c.code];
+    if(!pos) return;
+    const pin=document.createElement('div');
+    pin.className='map-pin';
+    pin.style.left=pos.x+'%';
+    pin.style.top=pos.y+'%';
+    pin.style.pointerEvents='all';
+    pin.innerHTML=`<div class="pin-dot"></div><div class="pin-label">${c.name}</div>`;
+    pin.onclick=()=>enterSite(c.code);
+    pinsEl.appendChild(pin);
+  });
 }
 
 function goGlobe(){
@@ -631,7 +802,7 @@ function buildDD(){
   <div class="cs-sep"></div>
   <div class="cs-globe-item" onclick="goGlobe()">
     <span style="width:22px;text-align:center;font-size:14px">🌐</span>
-    <span>All countries</span>
+    <span>All Service Regions</span>
   </div>`;
 }
 
@@ -646,11 +817,97 @@ function closeCS(){ csOpen=false; document.getElementById('cs-dd').classList.rem
 document.addEventListener('click',e=>{ if(!document.getElementById('cs').contains(e.target)) closeCS(); });
 
 function showPage(name){
+  if(name==='products') renderProducts();
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.querySelectorAll('#nav-links a').forEach(a=>a.classList.toggle('active',a.dataset.page===name));
   document.getElementById('nav').classList.toggle('light',name!=='home');
   window.scrollTo(0,0);
+}
+
+// ── Products page — per-country product sets ──
+const PROD_DEFS = {
+  takurox: {
+    tag:'Commercial Washer', name:'Takurox Commercial Series',
+    desc:'Heavy-duty commercial washers engineered for high-throughput laundry operations. Robust stainless construction, programmable cycles, and remote IoT monitoring make Takurox the backbone of CleanChain franchise hubs.',
+    specs:['18 kg / 25 kg / 35 kg','QR · NFC · API','1,200–1,400 rpm','IoT Ready'],
+    links:[{label:'View on takurox.com',url:'https://takurox.com'}],
+    icon:`<circle cx="40" cy="40" r="34"/><circle cx="40" cy="40" r="20"/><circle cx="40" cy="40" r="7"/>
+          <line x1="40" y1="6" x2="40" y2="18" stroke-width="1.5"/><line x1="40" y1="62" x2="40" y2="74" stroke-width="1.5"/>
+          <line x1="6" y1="40" x2="18" y2="40" stroke-width="1.5"/><line x1="62" y1="40" x2="74" y2="40" stroke-width="1.5"/>`
+  },
+  aqua: {
+    tag:'Self-Service Washer', name:'AQUA Front Load Series',
+    desc:'Designed for coin-operated and cashless self-service laundromats, the AQUA series balances compact footprint with reliable performance. Fast cycle times and energy-efficient motors make it ideal for high-footfall locations.',
+    specs:['8 kg / 12 kg / 14 kg','Coin · QR · NFC','1,200 rpm','IoT Ready'],
+    links:[{label:'View on aqua-oversea.com',url:'https://aqua-oversea.com'}],
+    icon:`<circle cx="40" cy="40" r="34"/><circle cx="40" cy="40" r="20"/><circle cx="40" cy="40" r="7"/>
+          <circle cx="40" cy="40" r="2.5" fill="rgba(255,255,255,.1)" stroke="none"/>`
+  },
+  aqua_small: {
+    tag:'Franchise Washer', name:'小AQUA Compact Series',
+    desc:'The 小AQUA is the franchise operator\'s choice — a smaller-footprint front-loader purpose-built for CleanChain franchise stores. Cashless-first design with QR and NFC payment, real-time cycle tracking, and straightforward maintenance.',
+    specs:['6 kg / 8 kg','QR · NFC','1,000 rpm','IoT Ready'],
+    links:[{label:'View on aqua-oversea.com',url:'https://aqua-oversea.com'}],
+    icon:`<circle cx="40" cy="40" r="28"/><circle cx="40" cy="40" r="16"/><circle cx="40" cy="40" r="5.5"/>
+          <circle cx="40" cy="40" r="2" fill="rgba(255,255,255,.1)" stroke="none"/>`
+  },
+  primus: {
+    tag:'Commercial Washer', name:'Primus Series',
+    desc:'Primus targets high-volume commercial operations — hotels, hospitals, and large-scale franchise hubs. Available in 18 kg and 35 kg drum sizes with up to 1,400 rpm extraction, Primus machines drastically reduce drying time and energy cost per kilogram washed.',
+    specs:['18 kg / 35 kg','QR · NFC · API','1,400 rpm','IoT Ready'],
+    links:[{label:'View on aqua-oversea.com',url:'https://aqua-oversea.com'}],
+    icon:`<circle cx="40" cy="40" r="34"/><circle cx="40" cy="40" r="20"/><circle cx="40" cy="40" r="7"/>
+          <line x1="40" y1="6" x2="40" y2="20" stroke-width="2"/><line x1="40" y1="60" x2="40" y2="74" stroke-width="2"/>
+          <line x1="6" y1="40" x2="20" y2="40" stroke-width="2"/><line x1="60" y1="40" x2="74" y2="40" stroke-width="2"/>`
+  }
+};
+
+// Per-country product lists
+const COUNTRY_PRODUCTS = {
+  th: ['takurox','aqua'],
+  vn: ['takurox','aqua','aqua_small','primus'],
+  in: ['takurox','aqua','aqua_small','primus'],
+};
+
+function prodCard(key, isLast){
+  const p = PROD_DEFS[key];
+  const border = isLast ? '' : 'margin-bottom:52px;padding-bottom:52px;border-bottom:1px solid var(--border)';
+  const links = p.links.map(l=>`
+    <a href="${l.url}" target="_blank"
+       style="font-size:12.5px;font-weight:600;color:var(--teal);border:1px solid var(--teal);border-radius:6px;padding:8px 16px;text-decoration:none;display:inline-block;transition:background .18s"
+       onmouseover="this.style.background='var(--teal-pale)'" onmouseout="this.style.background=''">
+      ${l.label} ↗
+    </a>`).join('');
+  const tags = p.specs.map(s=>`<span style="font-size:11.5px;font-weight:600;background:var(--teal-pale);color:var(--teal);border-radius:5px;padding:4px 10px">${s}</span>`).join('');
+  return `
+    <div style="display:flex;gap:40px;align-items:flex-start;${border}">
+      <div style="flex-shrink:0;width:180px;height:148px;background:linear-gradient(135deg,#1a2d3a,#0d1e2e);border-radius:12px;display:flex;align-items:center;justify-content:center">
+        <svg width="68" height="68" viewBox="0 0 80 80" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="1.2">${p.icon}</svg>
+      </div>
+      <div style="flex:1">
+        <div class="prod-tag">${p.tag}</div>
+        <h2 style="font-family:'Syne',sans-serif;font-size:21px;font-weight:700;margin-bottom:10px;letter-spacing:-.01em">${p.name}</h2>
+        <p style="font-size:13.5px;color:var(--mid);line-height:1.75;margin-bottom:16px">${p.desc}</p>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px">${tags}</div>
+        <div style="display:flex;gap:10px">${links}</div>
+      </div>
+    </div>`;
+}
+
+function renderProducts(){
+  const keys = COUNTRY_PRODUCTS[currentCountry] || ['takurox','aqua'];
+  const c = getC(currentCountry);
+  const cards = keys.map((k,i)=>prodCard(k, i===keys.length-1)).join('');
+  document.getElementById('products-content').innerHTML = `
+    <div style="background:var(--light);border-bottom:1px solid var(--border);padding:44px 40px 32px">
+      <div style="max-width:1040px;margin:0 auto">
+        <div class="lp-tag" style="color:var(--teal);border-color:var(--teal);background:var(--teal-pale);margin-bottom:14px">Product Introduction</div>
+        <h1 style="font-family:'Syne',sans-serif;font-size:30px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px">Our Products — ${c.name}</h1>
+        <p style="font-size:13.5px;color:var(--mid);line-height:1.7;max-width:520px">A curated overview of CleanChain equipment available in ${c.name}. Click any link to view full specifications on the brand site.</p>
+      </div>
+    </div>
+    <div style="max-width:1040px;margin:0 auto;padding:48px 40px 80px">${cards}</div>`;
 }
 
 // ── Init ──
