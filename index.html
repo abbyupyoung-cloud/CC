@@ -547,9 +547,9 @@ nav.light .nav-icon svg{stroke:var(--mid)}
       <li><a onclick="showPage('products')" data-page="products">Products</a></li>
       <li><a onclick="showPage('equip')" data-page="equip">Equipment</a></li>
       <li id="join-li"><a onclick="showPage('join')" data-page="join">Join Us</a></li>
-      <li><a onclick="return false">News</a></li>
-      <li><a onclick="return false">Locator</a></li>
-      <li><a onclick="return false">Contact</a></li>
+      <li><a onclick="return false" data-page="news">News</a></li>
+      <li><a onclick="return false" data-page="locator">Locator</a></li>
+      <li><a onclick="return false" data-page="contact">Contact</a></li>
     </ul>
 
     <div class="nav-right">
@@ -685,7 +685,7 @@ const COUNTRIES = [
   { code:'in', name:'Indonesia',     hasFr:true,
     flag:`<svg viewBox="0 0 22 15"><rect width="22" height="7.5" fill="#CE1126"/><rect y="7.5" width="22" height="7.5" fill="#FFFFFF"/></svg>`,
     flagLg:`<svg viewBox="0 0 40 28"><rect width="40" height="14" fill="#CE1126"/><rect y="14" width="40" height="14" fill="#FFFFFF"/></svg>` },
-  { code:'us', name:'United States', hasFr:false,
+  { code:'us', name:'United States', hasFr:false, navMode:'minimal',
     flag:`<svg viewBox="0 0 22 15"><rect width="22" height="15" fill="#B22234"/><rect y="1.15" width="22" height="1.15" fill="#fff"/><rect y="3.46" width="22" height="1.15" fill="#fff"/><rect y="5.77" width="22" height="1.15" fill="#fff"/><rect y="8.08" width="22" height="1.15" fill="#fff"/><rect y="10.38" width="22" height="1.15" fill="#fff"/><rect y="12.69" width="22" height="1.15" fill="#fff"/><rect width="8.8" height="8.08" fill="#3C3B6E"/></svg>`,
     flagLg:`<svg viewBox="0 0 40 28"><rect width="40" height="28" fill="#B22234"/><rect y="2.15" width="40" height="2.15" fill="#fff"/><rect y="6.46" width="40" height="2.15" fill="#fff"/><rect y="10.77" width="40" height="2.15" fill="#fff"/><rect y="15.08" width="40" height="2.15" fill="#fff"/><rect y="19.38" width="40" height="2.15" fill="#fff"/><rect y="23.69" width="40" height="2.15" fill="#fff"/><rect width="16" height="15.08" fill="#3C3B6E"/></svg>` },
 ];
@@ -755,11 +755,8 @@ function enterSite(code){
   document.getElementById('bb-url').textContent='cleanchain-global.com/'+code;
   document.title='CleanChain — '+c.name;
 
-  if(!c.hasFr){
-    // PH / US: standalone equipment LP, no nav
-    document.getElementById('globe').style.display='none';
-    document.getElementById('lp').style.display='block';
-    document.getElementById('site').style.display='none';
+  if(false){
+    // (unused branch kept for structure)
     window.scrollTo(0,0);
   } else {
     // TH / VN / IN: full sub-site with nav
@@ -778,16 +775,26 @@ function applyCountry(code){
   document.title='CleanChain — '+c.name;
   document.getElementById('bb-url').textContent='cleanchain-global.com/'+code;
 
-  // franchise panel + nav item
-  const panelJoin=document.getElementById('panel-join');
-  const joinLi=document.getElementById('join-li');
-  if(c.hasFr){
-    panelJoin.style.display='';
-    joinLi.style.display='';
-  } else {
-    panelJoin.style.display='none';
-    joinLi.style.display='none';
-  }
+  const isMinimal = c.navMode==='minimal';
+  // pages hidden in minimal mode (US: only home + contact)
+  const minimalHide = ['products','join','news','locator'];
+
+  document.querySelectorAll('#nav-links li').forEach(li=>{
+    const a = li.querySelector('[data-page]');
+    const page = a ? a.dataset.page : null;
+    if(!page) return;
+    if(isMinimal){
+      li.style.display = minimalHide.includes(page) ? 'none' : '';
+    } else {
+      li.style.display = '';
+      // join us only for franchise countries
+      if(page==='join') li.style.display = c.hasFr ? '' : 'none';
+    }
+  });
+
+  // franchise split panel
+  document.getElementById('panel-join').style.display = c.hasFr ? '' : 'none';
+
   buildDD();
 }
 
