@@ -449,7 +449,7 @@ nav.light .nav-icon svg{stroke:var(--mid)}
 
     <!-- country list panel -->
     <div class="globe-panel">
-      <div class="globe-panel-title">Service Regions</div>
+      <div class="globe-panel-title">Regions</div>
       <div id="globe-grid"></div>
     </div>
 
@@ -531,7 +531,7 @@ nav.light .nav-icon svg{stroke:var(--mid)}
 <div id="site">
 
   <nav id="nav">
-    <div class="logo" onclick="showPage('home')">
+    <div class="logo" onclick="showPage('about')">
       <div class="logo-mark">
         <svg viewBox="0 0 20 20" fill="none">
           <circle cx="10" cy="10" r="8" stroke="#1B6B6B" stroke-width="1.5"/>
@@ -543,10 +543,10 @@ nav.light .nav-icon svg{stroke:var(--mid)}
     </div>
 
     <ul class="nav-links" id="nav-links">
-      <li><a onclick="showPage('home')" data-page="home" class="active">About</a></li>
+      <li><a onclick="showPage('about')" data-page="about" class="active">About</a></li>
       <li><a onclick="showPage('products')" data-page="products">Products</a></li>
-      <li><a onclick="showPage('equip')" data-page="equip">Equipment</a></li>
-      <li id="join-li"><a onclick="showPage('join')" data-page="join">Join Us</a></li>
+      <li><a onclick="showPage('equip')" data-page="equip">Partner</a></li>
+      <li id="join-li"><a onclick="showPage('join')" data-page="join">Shop Owner</a></li>
       <li><a onclick="return false" data-page="news">News</a></li>
       <li><a onclick="return false" data-page="locator">Locator</a></li>
       <li><a onclick="return false" data-page="contact">Contact</a></li>
@@ -560,7 +560,6 @@ nav.light .nav-icon svg{stroke:var(--mid)}
         <div class="cs-btn" onclick="toggleCS()">
           <span class="cs-flag" id="cs-flag"></span>
           <div>
-            <span class="cs-region-label">Service Region</span>
             <span id="cs-label">Thailand</span>
           </div>
           <span class="cs-caret">▾</span>
@@ -570,8 +569,94 @@ nav.light .nav-icon svg{stroke:var(--mid)}
     </div>
   </nav>
 
-  <!-- HOME -->
-  <div class="page active" id="page-home">
+  <!-- ABOUT -->
+  <div class="page active" id="page-about">
+    <!-- Top text section: left title + right body copy -->
+    <div style="max-width:1100px;margin:0 auto;padding:72px 56px 56px;display:flex;gap:80px;align-items:flex-start">
+      <div style="flex:0 0 340px">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:16px">About CleanChain</div>
+        <h1 style="font-family:'Syne',sans-serif;font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.15;letter-spacing:-.02em;color:var(--ink)">Your Professional Partner in Self-Service Laundry Franchises</h1>
+      </div>
+      <div style="flex:1;padding-top:48px">
+        <p style="font-size:15px;line-height:1.85;color:#444;margin-bottom:22px">CleanChain is a leading provider of high-quality self-service laundry equipment, backed by over 40 years of industry experience. For more than a decade, we have been deeply involved in the Asian laundromat franchise market, helping entrepreneurs build stable, efficient, and competitive laundry businesses.</p>
+        <p style="font-size:15px;line-height:1.85;color:#444">We support our franchise partners by introducing advanced, high-performance laundry equipment and proven operational models designed for long-term success.</p>
+      </div>
+    </div>
+
+    <!-- Full-width image with centre divider line -->
+    <div style="position:relative;width:100%;height:420px;overflow:hidden;background:linear-gradient(135deg,#1a2d3a 0%,#0d3d3d 50%,#1b6b6b 100%)">
+      <!-- divider line -->
+      <div style="position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(255,255,255,.15);z-index:2"></div>
+      <!-- placeholder image (handshake silhouette) -->
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.12">
+        <svg width="480" height="300" viewBox="0 0 480 300" fill="none" stroke="white" stroke-width="1.5">
+          <!-- simplified handshake illustration -->
+          <path d="M60 180 Q100 150 140 160 L200 140 Q220 135 230 145 L260 155 Q280 165 270 180 L240 185"/>
+          <path d="M420 180 Q380 150 340 160 L280 140 Q260 135 250 145 L220 155 Q200 165 210 180 L240 185"/>
+          <ellipse cx="240" cy="180" rx="20" ry="12"/>
+          <!-- suit sleeves -->
+          <path d="M60 175 Q40 185 30 210 L80 230 Q95 205 120 195"/>
+          <path d="M420 175 Q440 185 450 210 L400 230 Q385 205 360 195"/>
+        </svg>
+      </div>
+      <!-- gradient overlay for text readability -->
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,61,61,.3) 0%,rgba(13,61,61,.5) 100%)"></div>
+    </div>
+
+    <!-- Stats row -->
+    <div style="background:var(--light);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+      <div style="max-width:1100px;margin:0 auto;padding:40px 56px;display:grid;grid-template-columns:repeat(4,1fr);gap:0">
+        <div style="text-align:center;padding:0 20px;border-right:1px solid var(--border)">
+          <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--teal)">40+</div>
+          <div style="font-size:12.5px;color:var(--mid);margin-top:5px;line-height:1.5">Years of industry experience</div>
+        </div>
+        <div style="text-align:center;padding:0 20px;border-right:1px solid var(--border)">
+          <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--teal)">10+</div>
+          <div style="font-size:12.5px;color:var(--mid);margin-top:5px;line-height:1.5">Years in franchise market</div>
+        </div>
+        <div style="text-align:center;padding:0 20px;border-right:1px solid var(--border)">
+          <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--teal)">4</div>
+          <div style="font-size:12.5px;color:var(--mid);margin-top:5px;line-height:1.5">Active service regions</div>
+        </div>
+        <div style="text-align:center;padding:0 20px">
+          <div style="font-family:'Syne',sans-serif;font-size:36px;font-weight:800;color:var(--teal)">IoT</div>
+          <div style="font-size:12.5px;color:var(--mid);margin-top:5px;line-height:1.5">Connected equipment platform</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mission / values row -->
+    <div style="max-width:1100px;margin:0 auto;padding:64px 56px 80px">
+      <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px">Our Mission</div>
+      <p style="font-size:14px;color:var(--mid);max-width:560px;line-height:1.7;margin-bottom:40px">To empower entrepreneurs and business operators across Asia and beyond with reliable, technology-driven laundry solutions that generate sustainable returns.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+        <div style="padding:28px 24px;border:1px solid var(--border);border-radius:12px">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:7px">Reliable Equipment</div>
+          <p style="font-size:12.5px;color:var(--mid);line-height:1.65">Industrial-grade machines built for continuous commercial use, with remote diagnostics and predictive maintenance.</p>
+        </div>
+        <div style="padding:28px 24px;border:1px solid var(--border);border-radius:12px">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:7px">Partner-First Approach</div>
+          <p style="font-size:12.5px;color:var(--mid);line-height:1.65">We invest in every partner's success — from initial setup through to ongoing operations, marketing, and expansion.</p>
+        </div>
+        <div style="padding:28px 24px;border:1px solid var(--border);border-radius:12px">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--teal-pale);display:flex;align-items:center;justify-content:center;margin-bottom:14px">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+          </div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:7px">Global Reach</div>
+          <p style="font-size:12.5px;color:var(--mid);line-height:1.65">Operating across Southeast Asia and North America, with a network built to scale as we enter new markets together.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME (split hero) — no longer the entry point, kept for logo / direct access -->
+  <div class="page" id="page-home">
     <div class="split">
       <div class="panel panel-left" onclick="showPage('join')" id="panel-join">
         <div class="panel-bg"></div>
@@ -587,9 +672,9 @@ nav.light .nav-icon svg{stroke:var(--mid)}
         <div class="panel-bg"></div>
         <div class="wm" style="right:auto;left:-10px"><svg viewBox="0 0 200 200" fill="none" stroke="white"><circle cx="100" cy="100" r="90" stroke-width="4"/><circle cx="100" cy="100" r="58" stroke-width="3"/><circle cx="100" cy="100" r="22" stroke-width="3"/><circle cx="100" cy="100" r="7" fill="white" stroke="none"/></svg></div>
         <div class="panel-content">
-          <div class="panel-eye">Equipment & Technology</div>
+          <div class="panel-eye">Become a Partner</div>
           <h2 class="panel-h">Equipment &<br>Applications</h2>
-          <p class="panel-sub">Advanced technology for your laundry needs. IoT-connected machines with remote management.</p>
+          <p class="panel-sub">Distribute CleanChain equipment in your region. We provide full support, training, and co-marketing.</p>
           <div class="btn-ghost"><span>Learn More</span><span class="btn-arr">››</span></div>
         </div>
       </div>
@@ -631,38 +716,149 @@ nav.light .nav-icon svg{stroke:var(--mid)}
     <div id="products-content"></div>
   </div>
 
-  <!-- EQUIPMENT -->
+  <!-- PARTNER (distributor recruitment) -->
   <div class="page" id="page-equip">
+
+    <!-- Hero -->
     <div class="eq-hero">
       <div class="eq-hc">
-        <div class="lp-tag">Equipment & Applications</div>
-        <h1 class="lp-h1">Industrial Laundry<br>Solutions</h1>
-        <p class="lp-lead">Commercial-grade washers and dryers engineered for self-service laundromats, hotels, and commercial clients across Southeast Asia.</p>
-        <button class="btn-solid">Request a Quote ›</button>
+        <div class="lp-tag">Become a Partner</div>
+        <h1 class="lp-h1">Grow with<br>CleanChain.</h1>
+        <p class="lp-lead">We're looking for passionate distributors and regional partners to bring CleanChain's commercial laundry solutions to new markets. Let's build something together.</p>
+        <button class="btn-solid" onclick="document.getElementById('contact-form').scrollIntoView({behavior:'smooth'})">Get in Touch ›</button>
       </div>
     </div>
+
     <div class="eq-body">
-      <div class="sec-title">Our Equipment Range</div>
-      <p class="sec-sub">All machines are IoT-enabled for remote monitoring, cashless payment, and predictive maintenance.</p>
-      <div class="prod-grid">
-        <div class="prod-card"><div class="prod-thumb"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" stroke-width="2.5"/><circle cx="40" cy="40" r="20" stroke-width="2"/><circle cx="40" cy="40" r="7" stroke-width="2"/></svg></div><div class="prod-body"><div class="prod-tag">Washer</div><div class="prod-h">小AQUA Front Load</div><p class="prod-p">8–14 kg capacity. Designed for self-service laundromats with coin and cashless payment.</p></div></div>
-        <div class="prod-card"><div class="prod-thumb"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="34" stroke-width="2.5"/><circle cx="40" cy="40" r="20" stroke-width="2"/><circle cx="40" cy="40" r="7" stroke-width="2"/><line x1="40" y1="6" x2="40" y2="20" stroke-width="2"/><line x1="40" y1="60" x2="40" y2="74" stroke-width="2"/></svg></div><div class="prod-body"><div class="prod-tag">Washer</div><div class="prod-h">Primus Commercial</div><p class="prod-p">16–35 kg high-spin commercial washer. Built for high-volume throughput.</p></div></div>
-        <div class="prod-card"><div class="prod-thumb"><svg viewBox="0 0 80 80"><rect x="8" y="14" width="64" height="52" rx="6" stroke-width="2.5"/><circle cx="40" cy="40" r="18" stroke-width="2"/><circle cx="40" cy="40" r="6" stroke-width="2"/></svg></div><div class="prod-body"><div class="prod-tag">Dryer</div><div class="prod-h">Stack Dryer Series</div><p class="prod-p">Space-efficient stacked dryers in 11 kg and 14 kg configurations for dense floor plans.</p></div></div>
+
+      <!-- Why CleanChain -->
+      <div class="sec-title">Why CleanChain?</div>
+      <p class="sec-sub">A proven brand, a growing market, and a partner that invests in your success.</p>
+      <div class="feat-grid" style="margin-bottom:64px">
+        <div class="feat-card">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+          <div class="feat-h">Established Brand</div>
+          <p class="feat-p">CleanChain operates across Southeast Asia and North America with a recognised franchise network and growing consumer trust.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 3h18v18H3z" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <div class="feat-h">Exclusive Territories</div>
+          <p class="feat-p">Partners receive exclusive or semi-exclusive regional rights, protecting your investment and ensuring focused market development.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div class="feat-h">Long-Term Partnership</div>
+          <p class="feat-p">We build lasting relationships — not one-off transactions. Your growth is our growth, and we structure agreements to reflect that.</p>
+        </div>
       </div>
-      <div class="sec-title">Specifications</div>
-      <p class="sec-sub" style="margin-bottom:18px">All models available in 220V/50Hz and 380V/50Hz configurations.</p>
-      <table class="specs-table">
-        <thead><tr><th>Model</th><th>Type</th><th>Capacity</th><th>Spin Speed</th><th>Connection</th></tr></thead>
-        <tbody>
-          <tr><td>小AQUA 8 kg</td><td>Front-load washer</td><td>8 kg</td><td>1,200 rpm</td><td>Coin / QR / NFC</td></tr>
-          <tr><td>小AQUA 12 kg</td><td>Front-load washer</td><td>12 kg</td><td>1,200 rpm</td><td>Coin / QR / NFC</td></tr>
-          <tr><td>Primus 18 kg</td><td>Commercial washer</td><td>18 kg</td><td>1,400 rpm</td><td>QR / NFC / API</td></tr>
-          <tr><td>Primus 35 kg</td><td>Commercial washer</td><td>35 kg</td><td>1,000 rpm</td><td>QR / NFC / API</td></tr>
-          <tr><td>Stack Dryer 11 kg</td><td>Vented dryer</td><td>11 kg</td><td>—</td><td>Coin / QR</td></tr>
-          <tr><td>Stack Dryer 14 kg</td><td>Vented dryer</td><td>14 kg</td><td>—</td><td>Coin / QR</td></tr>
-        </tbody>
-      </table>
-      <div class="cta-bar"><div><h3>Need a custom quote?</h3><p>Tell us your floor plan and we'll recommend the right machine mix.</p></div><button class="btn-solid">Get a Quote ›</button></div>
+
+      <!-- Product Strength -->
+      <div style="background:var(--light);border-radius:14px;padding:40px 40px 44px;margin-bottom:64px">
+        <div class="sec-title" style="margin-bottom:7px">Product Strength</div>
+        <p class="sec-sub" style="margin-bottom:32px">Industry-leading hardware backed by proprietary IoT software.</p>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+          <div style="text-align:center;padding:20px 12px">
+            <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--teal)">6+</div>
+            <div style="font-size:12px;color:var(--mid);margin-top:4px;line-height:1.5">Machine models across washer &amp; dryer lines</div>
+          </div>
+          <div style="text-align:center;padding:20px 12px">
+            <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--teal)">IoT</div>
+            <div style="font-size:12px;color:var(--mid);margin-top:4px;line-height:1.5">Real-time remote monitoring &amp; analytics</div>
+          </div>
+          <div style="text-align:center;padding:20px 12px">
+            <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--teal)">3+</div>
+            <div style="font-size:12px;color:var(--mid);margin-top:4px;line-height:1.5">Active markets with proven sales track record</div>
+          </div>
+          <div style="text-align:center;padding:20px 12px">
+            <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--teal)">QR/NFC</div>
+            <div style="font-size:12px;color:var(--mid);margin-top:4px;line-height:1.5">Cashless-ready payment on all models</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support & Service -->
+      <div class="sec-title">Support & Service</div>
+      <p class="sec-sub">We don't just ship equipment — we stay with you after the sale.</p>
+      <div class="steps-row" style="margin-bottom:64px">
+        <div class="step">
+          <div class="step-n"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.18 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg></div>
+          <div class="feat-h">Dedicated Support Line</div>
+          <p class="step-p">Direct access to a regional support manager for technical issues, spare parts, and escalations.</p>
+        </div>
+        <div class="step">
+          <div class="step-n"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div class="feat-h">Sales Materials</div>
+          <p class="step-p">Full set of localised brochures, spec sheets, and digital assets provided and updated regularly.</p>
+        </div>
+        <div class="step">
+          <div class="step-n"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <div class="feat-h">Co-Marketing</div>
+          <p class="step-p">Joint digital campaigns, trade show presence, and regional PR support to accelerate your market launch.</p>
+        </div>
+        <div class="step">
+          <div class="step-n"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="feat-h">After-Sales Care</div>
+          <p class="step-p">Warranty management, spare parts inventory, and scheduled maintenance programmes for end customers.</p>
+        </div>
+      </div>
+
+      <!-- Training -->
+      <div style="display:flex;gap:40px;align-items:center;background:linear-gradient(135deg,#0d3d3d,#1b6b6b);border-radius:14px;padding:40px 44px;margin-bottom:64px;overflow:hidden;position:relative">
+        <div style="position:absolute;right:-20px;top:50%;transform:translateY(-50%);opacity:.06">
+          <svg width="200" height="200" viewBox="0 0 200 200" fill="none" stroke="white" stroke-width="2"><circle cx="100" cy="100" r="90"/><circle cx="100" cy="100" r="60"/><circle cx="100" cy="100" r="30"/></svg>
+        </div>
+        <div style="flex:1;position:relative;z-index:2">
+          <div class="lp-tag" style="margin-bottom:14px">Training Programme</div>
+          <h3 style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:#fff;margin-bottom:10px;line-height:1.2">Onboarding &amp; ongoing training — fully covered.</h3>
+          <p style="font-size:13.5px;color:rgba(255,255,255,.62);line-height:1.7;max-width:460px">All new partners go through a structured onboarding programme covering product knowledge, installation procedures, IoT system operation, and sales methodology. Refresher sessions and new product training are provided as we expand the range.</p>
+        </div>
+        <div style="flex-shrink:0;display:flex;flex-direction:column;gap:12px;position:relative;z-index:2">
+          <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:14px 18px;min-width:160px">
+            <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Duration</div>
+            <div style="font-size:14px;font-weight:600;color:#fff">3-day onboarding</div>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:14px 18px">
+            <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Format</div>
+            <div style="font-size:14px;font-weight:600;color:#fff">On-site + remote</div>
+          </div>
+          <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:14px 18px">
+            <div style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Certification</div>
+            <div style="font-size:14px;font-weight:600;color:#fff">CleanChain Certified</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div id="contact-form">
+        <div class="sec-title">Get in Touch</div>
+        <p class="sec-sub">Tell us about your market and we'll be in touch within 2 business days.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:680px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:11.5px;font-weight:600;color:var(--mid);letter-spacing:.04em">Full Name *</label>
+            <input type="text" placeholder="Your name" style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:13.5px;font-family:inherit;outline:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:11.5px;font-weight:600;color:var(--mid);letter-spacing:.04em">Company *</label>
+            <input type="text" placeholder="Company name" style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:13.5px;font-family:inherit;outline:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:11.5px;font-weight:600;color:var(--mid);letter-spacing:.04em">Email *</label>
+            <input type="email" placeholder="you@company.com" style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:13.5px;font-family:inherit;outline:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:11.5px;font-weight:600;color:var(--mid);letter-spacing:.04em">Country / Region *</label>
+            <input type="text" placeholder="Where are you based?" style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:13.5px;font-family:inherit;outline:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1">
+            <label style="font-size:11.5px;font-weight:600;color:var(--mid);letter-spacing:.04em">Message</label>
+            <textarea rows="4" placeholder="Tell us about your distribution experience and target market…" style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:13.5px;font-family:inherit;outline:none;resize:vertical;transition:border-color .18s" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--border)'"></textarea>
+          </div>
+          <div style="grid-column:1/-1">
+            <button class="btn-solid" style="background:var(--teal);color:#fff" onmouseover="this.style.background='var(--teal-lt)'" onmouseout="this.style.background='var(--teal)'">Submit Enquiry ›</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -764,9 +960,18 @@ function enterSite(code){
     document.getElementById('lp').style.display='none';
     document.getElementById('site').style.display='block';
     applyCountry(code);
-    showPage('home');
+    showPage('about');
   }
 }
+
+// nav visibility per country — true=show, false=hide
+const NAV_RULES = {
+  //           about  products  join   equip  news   locator  contact
+  th: { about:1, products:1, join:1, equip:1, news:1, locator:1, contact:1 },
+  vn: { about:1, products:1, join:1, equip:1, news:1, locator:1, contact:1 },
+  in: { about:1, products:1, join:1, equip:1, news:0, locator:0, contact:1 },
+  us: { about:1, products:1, join:0, equip:1, news:0, locator:0, contact:1 },
+};
 
 function applyCountry(code){
   const c=getC(code);
@@ -775,24 +980,15 @@ function applyCountry(code){
   document.title='CleanChain — '+c.name;
   document.getElementById('bb-url').textContent='cleanchain-global.com/'+code;
 
-  const isMinimal = c.navMode==='minimal';
-  // pages hidden in minimal mode (US: only home + contact)
-  const minimalHide = ['products','join','news','locator'];
-
+  const rules = NAV_RULES[code] || NAV_RULES.th;
   document.querySelectorAll('#nav-links li').forEach(li=>{
     const a = li.querySelector('[data-page]');
     const page = a ? a.dataset.page : null;
     if(!page) return;
-    if(isMinimal){
-      li.style.display = minimalHide.includes(page) ? 'none' : '';
-    } else {
-      li.style.display = '';
-      // join us only for franchise countries
-      if(page==='join') li.style.display = c.hasFr ? '' : 'none';
-    }
+    li.style.display = rules[page] ? '' : 'none';
   });
 
-  // franchise split panel
+  // franchise split panel (Shop Owner left panel)
   document.getElementById('panel-join').style.display = c.hasFr ? '' : 'none';
 
   buildDD();
@@ -809,7 +1005,7 @@ function buildDD(){
   <div class="cs-sep"></div>
   <div class="cs-globe-item" onclick="goGlobe()">
     <span style="width:22px;text-align:center;font-size:14px">🌐</span>
-    <span>All Service Regions</span>
+    <span>Globe</span>
   </div>`;
 }
 
@@ -817,6 +1013,7 @@ function switchCountry(code){
   currentCountry=code;
   closeCS();
   enterSite(code);
+  showPage('about');
 }
 
 function toggleCS(){ csOpen=!csOpen; document.getElementById('cs-dd').classList.toggle('open',csOpen); }
