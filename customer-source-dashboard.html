@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>客戶來源儀表板</title>
+<style>
+  :root {
+    color-scheme: light;
+    --page:        #f9f9f7;
+    --surface-1:   #fcfcfb;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --text-muted:     #898781;
+    --gridline:    #e1e0d9;
+    --baseline:    #c3c2b7;
+    --border:      rgba(11,11,11,0.10);
+    --series-1:    #2a78d6;
+    --series-1-wash: rgba(42,120,214,0.10);
+    --good:        #0ca30c;
+    --good-wash:   rgba(12,163,12,0.12);
+    --critical:    #d03b3b;
+    --critical-wash: rgba(208,59,59,0.12);
+    --neutral:     #7a7975;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page:        #0d0d0d;
+      --surface-1:   #1a1a19;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --text-muted:     #898781;
+      --gridline:    #2c2c2a;
+      --baseline:    #383835;
+      --border:      rgba(255,255,255,0.10);
+      --series-1:    #3987e5;
+      --series-1-wash: rgba(57,135,229,0.16);
+      --good:        #0ca30c;
+      --good-wash:   rgba(12,163,12,0.18);
+      --critical:    #e66767;
+      --critical-wash: rgba(230,103,103,0.16);
+      --neutral:     #9b9a95;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page:        #0d0d0d;
+    --surface-1:   #1a1a19;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted:     #898781;
+    --gridline:    #2c2c2a;
+    --baseline:    #383835;
+    --border:      rgba(255,255,255,0.10);
+    --series-1:    #3987e5;
+    --series-1-wash: rgba(57,135,229,0.16);
+    --good:        #0ca30c;
+    --good-wash:   rgba(12,163,12,0.18);
+    --critical:    #e66767;
+    --critical-wash: rgba(230,103,103,0.16);
+    --neutral:     #9b9a95;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", "Segoe UI", sans-serif;
+    padding-inline: 20px;
+    padding-block: 32px 56px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+    color: var(--text-muted); text-transform: uppercase;
+  }
+  h1 { font-size: 26px; font-weight: 700; margin: 4px 0 2px; text-wrap: balance; }
+  .subtitle { font-size: 14px; color: var(--text-secondary); }
+
+  .stat-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;
+  }
+  @media (max-width: 620px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
+  .stat-tile {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .stat-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .stat-label { font-size: 12px; color: var(--text-secondary); }
+  .stat-value { font-size: 24px; font-weight: 700; }
+  .stat-sub { font-size: 11px; color: var(--text-muted); }
+
+  .card {
+    background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+    padding: 20px 22px 22px;
+  }
+  .card.highlight { border-color: color-mix(in srgb, var(--series-1) 35%, var(--border)); }
+  .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .card-title { font-size: 16px; font-weight: 700; }
+  .card-meta { font-size: 12px; color: var(--text-muted); }
+  .card-note { font-size: 13px; color: var(--text-secondary); margin-top: 14px; line-height: 1.55; }
+  .card-note b { color: var(--text-primary); }
+
+  .rows { display: flex; flex-direction: column; margin-top: 14px; }
+  .row {
+    display: grid; grid-template-columns: 116px 1fr 68px; align-items: center; gap: 10px;
+    padding-block: 5px; border-radius: 6px;
+  }
+  .row:hover { background: color-mix(in srgb, var(--series-1) 6%, transparent); }
+  .row-label { font-size: 13px; color: var(--text-secondary); text-align: right; line-height: 1.3; }
+  .row-label.emph { color: var(--text-primary); font-weight: 600; }
+  .track { position: relative; height: 20px; border-bottom: 1px solid var(--baseline); }
+  .bar {
+    position: absolute; left: 0; bottom: 0; height: 18px;
+    border-radius: 0 4px 4px 0; background: var(--series-1);
+  }
+  .row-value { font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .row-value b { color: var(--text-primary); font-weight: 600; }
+
+  .refline { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--text-muted); opacity: .55; }
+  .refline-label {
+    position: absolute; top: -18px; font-size: 10px; color: var(--text-muted);
+    transform: translateX(-50%); white-space: nowrap;
+  }
+  .axis-caption { font-size: 11px; color: var(--text-muted); margin-top: 10px; }
+
+  .stack { display: flex; height: 22px; border-radius: 5px; overflow: hidden; gap: 2px; margin-top: 14px; }
+  .stack > div { height: 100%; }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-secondary); }
+  .legend-swatch { width: 10px; height: 10px; border-radius: 3px; }
+
+  .seg-wrap {
+    position: absolute; left: 0; bottom: 0; height: 18px; display: flex; gap: 2px;
+    border-radius: 0 4px 4px 0; overflow: hidden;
+  }
+  .seg-wrap > div { height: 100%; }
+
+  .table-scroll { overflow-x: auto; margin-top: 18px; }
+  .data-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 480px; }
+  .data-table th, .data-table td {
+    padding: 7px 10px; text-align: right; border-bottom: 1px solid var(--gridline);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  .data-table th:first-child, .data-table td:first-child { text-align: left; }
+  .data-table thead th {
+    color: var(--text-muted); font-weight: 600; font-size: 11px;
+    text-transform: uppercase; letter-spacing: .03em; border-bottom: 1px solid var(--baseline);
+  }
+  .data-table tbody td:first-child { color: var(--text-secondary); }
+  .data-table tbody td:first-child.emph { color: var(--text-primary); font-weight: 600; }
+  .data-table tbody td { color: var(--text-primary); }
+  .data-table tbody tr:hover { background: color-mix(in srgb, var(--series-1) 6%, transparent); }
+
+  footer { font-size: 11px; color: var(--text-muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 14px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div>
+    <div class="eyebrow">內部業務報告</div>
+    <h1>客戶來源儀表板</h1>
+    <div class="subtitle">洗衣機設備案件追蹤 · 共 105 筆案件</div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-tile">
+      <span class="stat-dot" style="background:var(--neutral)"></span>
+      <span class="stat-label">總案件數</span>
+      <span class="stat-value">105</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-dot" style="background:var(--good)"></span>
+      <span class="stat-label">已成交（完成結案）</span>
+      <span class="stat-value">41</span>
+      <span class="stat-sub">佔 39.0%</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-dot" style="background:var(--series-1)"></span>
+      <span class="stat-label">進行中（訂金 / 分期付款）</span>
+      <span class="stat-value">61</span>
+      <span class="stat-sub">佔 58.1%</span>
+    </div>
+    <div class="stat-tile">
+      <span class="stat-dot" style="background:var(--critical)"></span>
+      <span class="stat-label">流失（訂金沒收 / 退款）</span>
+      <span class="stat-value">3</span>
+      <span class="stat-sub">佔 2.9%</span>
+    </div>
+  </div>
+
+  <div class="card highlight">
+    <div class="card-head">
+      <span class="card-title">完成結案案件的來源比例</span>
+      <span class="card-meta">n = 41 筆已成交案件</span>
+    </div>
+    <div class="rows" id="chart-closed"></div>
+    <div class="card-note">
+      舊客戶維護貢獻了 <b>58.5%</b> 的成交案件，是目前最主要的成交來源；客戶主動來電與 FB 並列第二，各佔 <b>9.8%</b>。
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">各來源轉換率比較</span>
+      <span class="card-meta">完成結案數 ÷ 該來源總案件數，僅列 n ≥ 3</span>
+    </div>
+    <div class="rows" id="chart-conversion"></div>
+    <div class="axis-caption">虛線為整體平均轉換率 39.0%</div>
+    <div class="card-note">
+      客戶主動來電（80.0%）與舊客戶維護（61.5%）轉換率最高；相對地 <b>TFBO 案件量排名第 2（16 筆），但轉換率僅 12.5%</b>，Franchise Expo 與清邁說明會目前則尚無成交，這兩類來源的後續跟進節奏值得檢視。
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">各來源案件狀態分布</span>
+      <span class="card-meta">總案件數 / 已成交 / 進行中，n = 105</span>
+    </div>
+    <div class="rows" id="chart-source-status"></div>
+    <div class="legend" id="source-status-legend"></div>
+    <div class="table-scroll">
+      <table class="data-table" id="source-status-table">
+        <thead>
+          <tr><th>客戶來源</th><th>總案件</th><th>已成交</th><th>進行中</th><th>流失</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">負責業務案件量</span>
+      <span class="card-meta">n = 105 筆全部案件</span>
+    </div>
+    <div class="rows" id="chart-rep"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">案件狀態總覽</span>
+    </div>
+    <div class="stack" id="status-stack"></div>
+    <div class="legend" id="status-legend"></div>
+  </div>
+
+  <footer>
+    資料整理自業務客戶來源追蹤表格（No.1–105）。原始「Ya」「YA」已合併計算；1 筆案件來源欄位未填寫，列為「（未填寫）」。如與原始表格有出入，請以原始資料為準。
+  </footer>
+</div>
+
+<script>
+(function () {
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  function renderBarList(containerId, data, opts) {
+    opts = opts || {};
+    var container = document.getElementById(containerId);
+    var max = opts.max || Math.max.apply(null, data.map(function (d) { return d.value; }));
+    data.forEach(function (d) {
+      var row = el('div', 'row');
+      var label = el('div', 'row-label' + (d.emph ? ' emph' : ''), d.label);
+      var track = el('div', 'track');
+      var bar = el('div', 'bar');
+      var pct = (d.value / max) * 100;
+      bar.style.width = pct + '%';
+      if (d.color) bar.style.background = d.color;
+      track.appendChild(bar);
+      if (opts.refValue != null) {
+        var ref = el('div', 'refline');
+        ref.style.left = (opts.refValue / max * 100) + '%';
+        track.appendChild(ref);
+      }
+      var value = el('div', 'row-value');
+      value.innerHTML = opts.valueHtml ? opts.valueHtml(d) : '<b>' + d.value + '</b>';
+      row.appendChild(label);
+      row.appendChild(track);
+      row.appendChild(value);
+      container.appendChild(row);
+    });
+  }
+
+  var seriesColor = getComputedStyle(document.documentElement).getPropertyValue('--series-1').trim() || '#2a78d6';
+
+  renderBarList('chart-closed', [
+    { label: '舊客戶維護', value: 24, emph: true },
+    { label: '客戶主動來電', value: 4 },
+    { label: 'FB', value: 4 },
+    { label: 'Cheeshong ruay', value: 2 },
+    { label: '主動開發', value: 2 },
+    { label: 'TFBO', value: 2 },
+    { label: '說明會', value: 1 },
+    { label: 'Money Expo', value: 1 },
+    { label: '舊客戶介紹', value: 1 }
+  ], {
+    valueHtml: function (d) { return '<b>' + d.value + '</b> 筆 · ' + (d.value / 41 * 100).toFixed(1) + '%'; }
+  });
+
+  renderBarList('chart-conversion', [
+    { label: '客戶主動來電', value: 80.0 },
+    { label: '主動開發', value: 66.7 },
+    { label: '舊客戶維護', value: 61.5, emph: true },
+    { label: 'Cheeshong ruay', value: 40.0 },
+    { label: 'FB', value: 28.6 },
+    { label: 'TFBO', value: 12.5 },
+    { label: 'Franchise Expo', value: 0 },
+    { label: '清邁說明會', value: 0 }
+  ], {
+    max: 100,
+    refValue: 39.0,
+    valueHtml: function (d) { return '<b>' + d.value.toFixed(1) + '%</b>'; }
+  });
+
+  var sourceStatus = [
+    { label: '舊客戶維護', closed: 24, progress: 15, lost: 0 },
+    { label: 'TFBO', closed: 2, progress: 12, lost: 2 },
+    { label: 'FB', closed: 4, progress: 10, lost: 0 },
+    { label: 'Franchise Expo', closed: 0, progress: 8, lost: 0 },
+    { label: '客戶主動來電', closed: 4, progress: 1, lost: 0 },
+    { label: 'Cheeshong ruay', closed: 2, progress: 3, lost: 0 },
+    { label: '主動開發', closed: 2, progress: 1, lost: 0 },
+    { label: '清邁說明會', closed: 0, progress: 3, lost: 0 },
+    { label: '說明會', closed: 1, progress: 1, lost: 0 },
+    { label: 'Money Expo-Sirikit', closed: 0, progress: 2, lost: 0 },
+    { label: 'Line', closed: 0, progress: 1, lost: 1 },
+    { label: '客戶主動至直營店', closed: 0, progress: 2, lost: 0 },
+    { label: '展會', closed: 0, progress: 1, lost: 0 },
+    { label: 'Money Expo', closed: 1, progress: 0, lost: 0 },
+    { label: '舊客戶介紹', closed: 1, progress: 0, lost: 0 },
+    { label: '（未填寫）', closed: 0, progress: 1, lost: 0 }
+  ].map(function (d) { d.total = d.closed + d.progress + d.lost; return d; });
+
+  var statusColors = { closed: 'var(--good)', progress: 'var(--series-1)', lost: 'var(--critical)' };
+  var statusLabels = { closed: '已成交', progress: '進行中', lost: '流失' };
+  var srcMax = Math.max.apply(null, sourceStatus.map(function (d) { return d.total; }));
+
+  var srcContainer = document.getElementById('chart-source-status');
+  sourceStatus.forEach(function (d, i) {
+    var row = el('div', 'row');
+    var label = el('div', 'row-label' + (i === 0 ? ' emph' : ''), d.label);
+    var track = el('div', 'track');
+    var wrap = el('div', 'seg-wrap');
+    wrap.style.width = (d.total / srcMax * 100) + '%';
+    ['closed', 'progress', 'lost'].forEach(function (key) {
+      if (d[key] <= 0) return;
+      var seg = el('div');
+      seg.style.flex = d[key];
+      seg.style.background = statusColors[key];
+      wrap.appendChild(seg);
+    });
+    track.appendChild(wrap);
+    var value = el('div', 'row-value');
+    value.innerHTML = '<b>' + d.total + '</b>';
+    row.appendChild(label);
+    row.appendChild(track);
+    row.appendChild(value);
+    srcContainer.appendChild(row);
+  });
+
+  var srcLegend = document.getElementById('source-status-legend');
+  ['closed', 'progress', 'lost'].forEach(function (key) {
+    var item = el('div', 'legend-item');
+    var sw = el('span', 'legend-swatch');
+    sw.style.background = statusColors[key];
+    item.appendChild(sw);
+    item.appendChild(document.createTextNode(statusLabels[key]));
+    srcLegend.appendChild(item);
+  });
+
+  var tbody = document.querySelector('#source-status-table tbody');
+  sourceStatus.slice().sort(function (a, b) { return b.total - a.total; }).forEach(function (d, i) {
+    var tr = el('tr');
+    var tdLabel = el('td', i === 0 ? 'emph' : null, d.label);
+    tr.appendChild(tdLabel);
+    [d.total, d.closed, d.progress, d.lost].forEach(function (v) {
+      tr.appendChild(el('td', null, String(v)));
+    });
+    tbody.appendChild(tr);
+  });
+
+  renderBarList('chart-rep', [
+    { label: 'Bee', value: 35, emph: true },
+    { label: '梁經理', value: 20 },
+    { label: 'Rin', value: 13 },
+    { label: 'Bank', value: 9 },
+    { label: 'Pok', value: 8 },
+    { label: 'Ya', value: 8 },
+    { label: 'Katai', value: 6 },
+    { label: 'Pin', value: 3 },
+    { label: 'Wut', value: 2 },
+    { label: 'Bier', value: 1 }
+  ], {
+    valueHtml: function (d) { return '<b>' + d.value + '</b> 筆 · ' + (d.value / 105 * 100).toFixed(1) + '%'; }
+  });
+
+  var statusData = [
+    { label: '已成交', value: 41, pct: 39.0, color: 'var(--good)' },
+    { label: '進行中', value: 61, pct: 58.1, color: 'var(--series-1)' },
+    { label: '流失', value: 3, pct: 2.9, color: 'var(--critical)' }
+  ];
+  var stack = document.getElementById('status-stack');
+  statusData.forEach(function (d) {
+    var seg = el('div');
+    seg.style.width = d.pct + '%';
+    seg.style.background = d.color;
+    stack.appendChild(seg);
+  });
+  var legend = document.getElementById('status-legend');
+  statusData.forEach(function (d) {
+    var item = el('div', 'legend-item');
+    var sw = el('span', 'legend-swatch');
+    sw.style.background = d.color;
+    item.appendChild(sw);
+    item.appendChild(document.createTextNode(d.label + '　' + d.value + ' 筆（' + d.pct.toFixed(1) + '%）'));
+    legend.appendChild(item);
+  });
+})();
+</script>
+</body>
+</html>
