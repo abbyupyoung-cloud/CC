@@ -81,14 +81,14 @@ header p { margin: 0; color: var(--muted); max-width: 62ch; }
 
 /* ===== 各方案的 hover 狀態 ===== */
 /* 目前：底變全黑＋字變品牌藍 → 整格變暗 */
-.v-now .dropdown a:hover, .force .v-now .dropdown a { background: #0b0b0d; color: var(--brand); }
+.v-now .dropdown a:hover, .dropdown a:focus, .force .v-now .dropdown a { background: #0b0b0d; color: var(--brand); }
 /* A：品牌藍底＋白字 */
-.v-a .dropdown a:hover, .force .v-a .dropdown a { background: var(--brand); color: #fff; }
+.v-a .dropdown a:hover, .dropdown a:focus, .force .v-a .dropdown a { background: var(--brand); color: #fff; }
 /* B：左側藍條＋提亮半透明底 */
 .v-b .dropdown a { border-left: 3px solid transparent; }
-.v-b .dropdown a:hover, .force .v-b .dropdown a { background: rgba(80, 90, 110, .72); border-left-color: var(--brand-soft); padding-left: 20px; }
+.v-b .dropdown a:hover, .dropdown a:focus, .force .v-b .dropdown a { background: rgba(80, 90, 110, .72); border-left-color: var(--brand-soft); padding-left: 20px; }
 /* C：淺色反白 */
-.v-c .dropdown a:hover, .force .v-c .dropdown a { background: #eef4fb; color: #0b1c2e; }
+.v-c .dropdown a:hover, .dropdown a:focus, .force .v-c .dropdown a { background: #eef4fb; color: #0b1c2e; }
 
 @media (prefers-reduced-motion: reduce) { .dropdown a { transition: none; } }
 
@@ -105,10 +105,10 @@ footer code { font-family: var(--f-mono); color: var(--text); }
 
 </head>
 <body>
-<div class="wrap force" id="root">
+<div class="wrap" id="root">
   <header>
     <h1>Products 下拉選單：hover 狀態方案</h1>
-    <p>以下示範圖都是滑鼠停在「Takurox」上的狀態。第一張是目前官網的效果，下面兩張是改善方案。</p>
+    <p>把滑鼠移到每張示範圖裡的「Takurox」上，就能比較滑鼠移入前後的效果（手機請點一下）。第一張是目前官網的做法，下面兩張是改善方案。</p>
   </header>
 
   <!-- 目前 -->
