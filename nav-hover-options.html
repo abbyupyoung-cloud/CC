@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Products 選單 Hover 方案</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: 單欄比較頁，每個方案一張「仿官網導覽列」示範卡＋CSS 片段；刻意用單一深色主題，貼近 clean+chain 官網 */
+:root {
+  --ink: #0a0d14;          /* 頁面底 */
+  --panel: #121722;        /* 方案卡底 */
+  --line: #242c3b;         /* 分隔線 */
+  --text: #e9edf4;
+  --muted: #8b95a8;
+  --brand: #1677d6;        /* clean+chain 導覽列藍條 */
+  --brand-soft: #4da3ff;
+  --menu: #0d0f16;         /* 下拉選單底 */
+  --bad: #e5675a;
+  --good: #3fbf86;
+  --f-display: "Outfit", "Noto Sans TC", system-ui, sans-serif;
+  --f-body: "Noto Sans TC", "Outfit", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--ink);
+  color: var(--text);
+  font: 15px/1.7 var(--f-body);
+  padding: 0 16px;
+}
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 40px 64px; display: grid; gap: 28px; }
+header h1 { font: 700 clamp(26px, 4vw, 36px)/1.25 var(--f-display); margin: 0 0 8px; text-wrap: balance; }
+header p { margin: 0; color: var(--muted); max-width: 62ch; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); }
+.controls label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 500; }
+.controls input { width: 18px; height: 18px; accent-color: var(--brand); }
+.controls span.hint { color: var(--muted); font-size: 13px; }
+
+.option { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); overflow: hidden; }
+.option-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 18px 20px 14px; }
+.option-head h2 { margin: 0; font: 600 20px/1.3 var(--f-display); }
+.tag { font: 500 12px/1 var(--f-body); letter-spacing: .04em; padding: 5px 9px; border-radius: 999px; border: 1px solid currentColor; }
+.tag.bad { color: var(--bad); }
+.tag.good { color: var(--good); }
+.tag.neutral { color: var(--muted); }
+.option-head p { flex-basis: 100%; margin: 0; color: var(--muted); }
+
+/* 仿官網 hero */
+.stage {
+  position: relative;
+  height: 230px;
+  background:
+    radial-gradient(circle at 78% 70%, rgba(120,140,170,.35) 0 18%, transparent 19%),
+    radial-gradient(circle at 78% 70%, rgba(20,28,40,.9) 0 27%, transparent 28%),
+    radial-gradient(circle at 78% 70%, rgba(110,125,150,.4) 0 31%, transparent 32%),
+    radial-gradient(circle at 22% 80%, rgba(110,125,150,.3) 0 22%, transparent 23%),
+    linear-gradient(180deg, #3c4a5e 0%, #2a3547 55%, #1d2533 100%);
+  font-family: var(--f-display);
+  overflow: hidden;
+}
+.stage::after { content: ""; position: absolute; inset: 0; background: rgba(18,30,52,.35); pointer-events: none; }
+.nav { position: relative; z-index: 2; display: flex; align-items: flex-start; justify-content: space-between; padding: 0 22px; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.06); }
+.logo { padding-top: 20px; font: 400 22px/1 var(--f-display); color: #1a2230; letter-spacing: -.01em; }
+.menu { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.menu > li { position: relative; }
+.menu > li > span { display: block; padding: 20px 16px 18px; color: #111; font-weight: 500; font-size: 15px; border-top: 5px solid transparent; }
+.menu > li.active > span { border-top-color: var(--brand); }
+.dropdown { position: absolute; top: 100%; left: 0; min-width: 150px; list-style: none; margin: 0; padding: 0; }
+/* 官網現況：下拉選單是半透明深色，看得到底下的照片 */
+.dropdown a { display: block; padding: 16px 16px; color: #fff; background: rgba(20, 18, 18, .62); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); font: 500 14px/1 var(--f-display); text-decoration: none; transition: background .2s ease, color .2s ease, border-color .2s ease, padding-left .2s ease; }
+.dropdown a:focus-visible { outline: 2px solid var(--brand-soft); outline-offset: -2px; }
+@media (max-width: 560px) {
+  .menu > li.hide-sm { display: none; }
+  .logo { font-size: 18px; }
+}
+
+/* ===== 各方案的 hover 狀態 ===== */
+/* 目前：底變全黑＋字變品牌藍 → 整格變暗 */
+.v-now .dropdown a:hover, .force .v-now .dropdown a { background: #0b0b0d; color: var(--brand); }
+/* A：品牌藍底＋白字 */
+.v-a .dropdown a:hover, .force .v-a .dropdown a { background: var(--brand); color: #fff; }
+/* B：左側藍條＋提亮半透明底 */
+.v-b .dropdown a { border-left: 3px solid transparent; }
+.v-b .dropdown a:hover, .force .v-b .dropdown a { background: rgba(80, 90, 110, .72); border-left-color: var(--brand-soft); padding-left: 20px; }
+/* C：淺色反白 */
+.v-c .dropdown a:hover, .force .v-c .dropdown a { background: #eef4fb; color: #0b1c2e; }
+
+@media (prefers-reduced-motion: reduce) { .dropdown a { transition: none; } }
+
+/* CSS 片段 */
+.code { border-top: 1px solid var(--line); position: relative; }
+.code pre { margin: 0; padding: 16px 20px; overflow-x: auto; font: 13px/1.65 var(--f-mono); color: #c9d3e3; background: #0c1018; }
+.copy { position: absolute; top: 10px; right: 12px; font: 500 12px/1 var(--f-body); color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; cursor: pointer; }
+.copy:hover { border-color: var(--brand-soft); }
+.copy:focus-visible { outline: 2px solid var(--brand-soft); outline-offset: 2px; }
+
+footer { color: var(--muted); font-size: 13px; }
+footer code { font-family: var(--f-mono); color: var(--text); }
+</style>
+
+</head>
+<body>
+<div class="wrap force" id="root">
+  <header>
+    <h1>Products 下拉選單：hover 狀態方案</h1>
+    <p>以下示範圖都是滑鼠停在「Takurox」上的狀態。第一張是目前官網的效果，下面兩張是改善方案。</p>
+  </header>
+
+  <!-- 目前 -->
+  <section class="option v-now">
+    <div class="option-head">
+      <h2>目前做法</h2><span class="tag bad">問題</span>
+      <p>選單原本是半透明深色底、白字。hover 後底變成全黑、字變深藍，對比反而變低，看起來像選項變暗了。</p>
+    </div>
+    <div class="stage" aria-hidden="false">
+      <nav class="nav"><div class="logo">clean+chain</div>
+        <ul class="menu">
+          <li class="hide-sm"><span>About</span></li>
+          <li class="active"><span>Products</span>
+            <ul class="dropdown"><li><a href="#" onclick="return false">Takurox</a></li></ul></li>
+          <li class="hide-sm"><span>Partner</span></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- A -->
+  <section class="option v-a">
+    <div class="option-head">
+      <h2>方案 A：品牌藍底＋白字</h2><span class="tag good">推薦</span>
+      <p>整格填滿品牌藍，字維持白色。和 Products 上方的藍色指示條是同一套語言，最直覺。</p>
+    </div>
+    <div class="stage">
+      <nav class="nav"><div class="logo">clean+chain</div>
+        <ul class="menu">
+          <li class="hide-sm"><span>About</span></li>
+          <li class="active"><span>Products</span>
+            <ul class="dropdown"><li><a href="#" onclick="return false">Takurox</a></li></ul></li>
+          <li class="hide-sm"><span>Partner</span></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="option v-c">
+    <div class="option-head">
+      <h2>方案 B：淺色反白</h2><span class="tag neutral">最醒目</span>
+      <p>整格變成帶一點藍的淺色、字改深藍。對比最強；用淺藍而不是純白，才不會和上方白色導覽列黏在一起。</p>
+    </div>
+    <div class="stage">
+      <nav class="nav"><div class="logo">clean+chain</div>
+        <ul class="menu">
+          <li class="hide-sm"><span>About</span></li>
+          <li class="active"><span>Products</span>
+            <ul class="dropdown"><li><a href="#" onclick="return false">Takurox</a></li></ul></li>
+          <li class="hide-sm"><span>Partner</span></li>
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <footer>示範圖背景為示意，非官網原圖。</footer>
+</div>
+
+</body>
+</html>
