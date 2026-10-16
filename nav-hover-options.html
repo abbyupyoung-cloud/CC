@@ -107,8 +107,8 @@ footer code { font-family: var(--f-mono); color: var(--text); }
 <body>
 <div class="wrap" id="root">
   <header>
-    <h1>Products 下拉選單：hover 狀態方案</h1>
-    <p>把滑鼠移到每張示範圖裡的「Takurox」上，就能比較滑鼠移入前後的效果（手機請點一下）。第一張是目前官網的做法，下面兩張是改善方案。</p>
+    <h1>Products 下拉選單：hover 狀態改善</h1>
+    <p>把滑鼠移到每張示範圖裡的「Takurox」上，就能比較滑鼠移入前後的效果（手機請點一下）。上面是目前官網的做法，下面是改善方案。</p>
   </header>
 
   <!-- 目前 -->
@@ -145,28 +145,29 @@ footer code { font-family: var(--f-mono); color: var(--text); }
         </ul>
       </nav>
     </div>
+    <div class="code"><button class="copy" type="button">複製 CSS</button><pre>.dropdown-menu a {
+  color: #fff;
+  background: rgba(20, 18, 18, .62);   /* 維持現有半透明底 */
+  transition: background .2s ease, color .2s ease;
+}
+.dropdown-menu a:hover {
+  background: #1677d6;   /* 品牌藍，換成網站實際色碼 */
+  color: #fff;
+}</pre></div>
   </section>
 
-  <!-- C -->
-  <section class="option v-c">
-    <div class="option-head">
-      <h2>方案 B：淺色反白</h2><span class="tag neutral">最醒目</span>
-      <p>整格變成帶一點藍的淺色、字改深藍。對比最強；用淺藍而不是純白，才不會和上方白色導覽列黏在一起。</p>
-    </div>
-    <div class="stage">
-      <nav class="nav"><div class="logo">clean+chain</div>
-        <ul class="menu">
-          <li class="hide-sm"><span>About</span></li>
-          <li class="active"><span>Products</span>
-            <ul class="dropdown"><li><a href="#" onclick="return false">Takurox</a></li></ul></li>
-          <li class="hide-sm"><span>Partner</span></li>
-        </ul>
-      </nav>
-    </div>
-  </section>
-
-  <footer>示範圖背景為示意，非官網原圖。</footer>
+  <footer>給工程師：<code>.dropdown-menu a</code>、半透明底色和 <code>#1677d6</code> 是從截圖推測的，請換成網站實際的選單 class 與色碼。示範圖背景為示意，非官網原圖。</footer>
 </div>
 
+<script>
+document.querySelectorAll('.copy').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const pre = btn.nextElementSibling;
+    const done = () => { btn.textContent = '已複製'; setTimeout(() => btn.textContent = '複製 CSS', 1500); };
+    const select = () => { const r = document.createRange(); r.selectNodeContents(pre); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); };
+    if (navigator.clipboard) navigator.clipboard.writeText(pre.textContent).then(done).catch(select); else select();
+  });
+});
+</script>
 </body>
 </html>
